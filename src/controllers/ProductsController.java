@@ -19,7 +19,15 @@ public class ProductsController {
         int productId = Integer.parseInt(idFromRequest);
         boolean result = productsDAO.bid(productId);
         if (result) {
-            context.getResponse().ok("Bid updated successfully.");
+            ArrayList<Product> listOfProducts = productsDAO.findAll();
+            float newBid = 0;
+            for (Product product : listOfProducts) {
+                if (product.getId() == productId) {
+                    newBid = product.getBid();
+                    break;
+                }
+            }
+            context.getResponse().json(newBid);
         } else {
             context.getResponse().serverError("Failed to update bid.");
         }

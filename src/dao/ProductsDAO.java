@@ -35,7 +35,6 @@ public class ProductsDAO {
             statement.setInt(1, productId);
             int success = statement.executeUpdate();
             return success > 0;
-        }
-        catch (SQLException e){ return false; }
+        } catch (SQLException e){ return false; }
     }
 }
