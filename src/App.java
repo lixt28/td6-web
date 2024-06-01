@@ -19,6 +19,10 @@ public class App {
                 "/products", 
                 (WebServerContext context) -> { ProductsController.findAll(context); }
             );
+            webserver.getRouter().post(
+                "/products/bid/:productId",
+                (WebServerContext context) -> { ProductsController.bid(context); }
+            );
         } 
         catch (Exception e) {}
     }

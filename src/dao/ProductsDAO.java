@@ -26,6 +26,16 @@ public class ProductsDAO {
         }
         catch (SQLException e){}
         return listOfProducts;
+    }
 
+    public boolean bid(int productId) {
+        try {
+            PolyBayDatabase connexion = new PolyBayDatabase();
+            PreparedStatement statement = connexion.prepareStatement("UPDATE product SET bid = bid + 50 WHERE id = ?");
+            statement.setInt(1, productId);
+            int success = statement.executeUpdate();
+            return success > 0;
+        }
+        catch (SQLException e){ return false; }
     }
 }
