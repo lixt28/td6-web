@@ -1,24 +1,22 @@
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
+import dao.ProductsDAO;
 import database.PolyBayDatabase;
+import models.Product;
 
 public class App {
     public static void main(String[] args) throws Exception {
         try {
-            PolyBayDatabase connexion = new PolyBayDatabase();
-            PreparedStatement statement = connexion.prepareStatement("SELECT * FROM product");
-            ResultSet results = statement.executeQuery();
+            ProductsDAO productsDAO = new ProductsDAO();
+            ArrayList<Product> listOfProducts = productsDAO.findAll();
 
-            while (results.next()) {
-                int id = results.getInt("id");
-                String name = results.getString("name");
-                String owner = results.getString("owner");
-                float bid = results.getFloat("bid");
-                System.out.println("id : " + id + ", name : " + name + ", owner : " + owner + ", bid : " + bid);
+            for (Product product : listOfProducts) {
+                System.out.println(product);
             }
         }
-        catch (SQLException e){}
+        catch (Exception e) {}
     }
-}
+}    
